@@ -1,0 +1,18 @@
+[
+    {
+        "role": "user",
+        "message": "hi"
+    },
+    {
+        "role": "ACE",
+        "message": "Hey there! I'm ACE, your friendly academic AI assistant. I\u2019m here to help you with pretty much anything related to your studies \u2013 from understanding tricky concepts to creating flashcards or even quizzing yourself. \n\nBasically, I can be your go-to for all things academic. \n\nTo start, could you tell me a little bit about yourself? What\u2019s your name, and what are you currently studying or working on? Don\u2019t worry about being too formal - just a quick introduction is fine! \ud83d\ude0a"
+    },
+    {
+        "role": "user",
+        "message": "/bye"
+    },
+    {
+        "role": "ACE",
+        "message": "Okay, no problem! It sounds like you\u2019re wrapping things up. Just wanted to check in and see if there\u2019s anything else I can help you with before you go. \ud83d\ude0a"
+    }
+]
