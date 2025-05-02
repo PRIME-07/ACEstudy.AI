@@ -2,12 +2,15 @@ import time
 import json
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama.llms import OllamaLLM
+from firebase_utils import create_session, update_chat_history, update_session_name
+from firebase_utils import get_all_sessions, load_session, get_username
 
 # Initialize the model with streaming enabled
 model = OllamaLLM(model="gemma3:4b-it-qat", stream=True)
 
 # Chat history
 history = []
+
 
 # Define system prompt
 system_prompt = """
@@ -33,7 +36,7 @@ prompt_template = ChatPromptTemplate.from_messages([
 ])
 
 # Chat loop
-def conversation():
+def conversation(uid=None, session_id=None):
     print("Initializing ACE...")
     time.sleep(1.5)
     print("Ace is ready! \nType '/bye' to exit chat. \nType '/help' to explore commands.")
@@ -57,10 +60,9 @@ def conversation():
             history.append({"role": "user", "message": user_input})
             history.append({"role": "ACE", "message": ace_response})
 
-            with open("src/chat_history/chat_history.json", "w") as f:
-                json.dump(history, f, indent=4)
-
-            print("\nSession ended. Chat history saved to `chat_history.json`.")
+            # Save chat history to Firestore
+            update_chat_history(uid, session_id, history)
+            print("\nSession ended. Chat history saved!")
             break
 
         elif user_input.lower() == "/show_history":
@@ -70,10 +72,46 @@ def conversation():
             print("----------------------------\n")
             continue
 
+        elif user_input.lower() == "/rename session":
+            new_name = input("Enter new session name: ")
+            
+            # check for unique session name
+            get_all_sessions(uid)
+            if new_name in [session['session_name'] for session in get_all_sessions(uid)]:
+                print("Session name already exists. Please choose a different name.")
+                continue
+            
+            update_session_name(uid, session_id, new_name)
+            print(f"Session renamed to '{new_name}'")
+            continue
+
+        elif user_input.lower() == "/new session":
+            new_session_name = input("Enter a name for the new session: ")
+            create_session(uid, session_name=new_session_name)
+            print(f"New session '{new_session_name}' created.")
+            continue
+        
+        elif user_input.lower() == "/load session":
+            get_all_sessions(uid)
+            # list all sessions
+            print("----------Available sessions----------\n")
+            for i, session in enumerate(get_all_sessions(uid)):
+                print(f"{i+1}. {session['session_name']}, (Created at: {session['created_at']})")
+            print("-------------------------------------\n")
+            # select session to load
+            select_session = input("Enter the name of the session you want to load:")
+            load_session(uid, select_session)
+
+            for msg in load_session(uid, select_session)["full_chat_history"]:
+                history.append({"role": msg['role'], "message": msg['message']})
+
+            continue
+
         elif user_input.lower() == "/help":
             print("\nAvailable commands:")
             print("/bye - End the chat and save history.")
             print("/show_history - Display the chat history.")
+            print("/rename session - Rename the current session.")
             print("/help - Show this help message.")
             print("----------------------------\n")
             continue
@@ -96,5 +134,7 @@ def conversation():
 
             history.append({"role": "ACE", "message": ace_response})
 
-if __name__ == "__main__":
-    conversation()
+
+# unit test
+#if __name__ == "__main__":
+#    conversation()

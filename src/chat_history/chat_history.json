@@ -1,11 +1,11 @@
 [
     {
         "role": "user",
-        "message": "hi"
+        "message": "hyeee"
     },
     {
         "role": "ACE",
-        "message": "Hey there! I'm ACE, your friendly academic AI assistant. I\u2019m here to help you with pretty much anything related to your studies \u2013 from understanding tricky concepts to creating flashcards or even quizzing yourself. \n\nBasically, I can be your go-to for all things academic. \n\nTo start, could you tell me a little bit about yourself? What\u2019s your name, and what are you currently studying or working on? Don\u2019t worry about being too formal - just a quick introduction is fine! \ud83d\ude0a"
+        "message": "Hey there! I'm ACE, your friendly academic AI assistant. It looks like you might be a little excited \u2013 is everything okay? \ud83d\ude0a\n\nI can help you with a whole bunch of things related to your studies, from understanding tricky concepts to creating flashcards or even quizzes. Basically, if you\u2019re struggling with something academically, I\u2019m here to lend a hand.\n\nTo start, could you tell me a little about yourself? What's your name, what are you studying, and what kind of help are you looking for today? Don\u2019t worry about being too formal, just a little chat will do!"
     },
     {
         "role": "user",
@@ -13,6 +13,6 @@
     },
     {
         "role": "ACE",
-        "message": "Okay, no problem! It sounds like you\u2019re wrapping things up. Just wanted to check in and see if there\u2019s anything else I can help you with before you go. \ud83d\ude0a"
+        "message": "Okay, no worries! It sounds like you're done for now. \ud83d\ude0a If you change your mind and need anything at all, just let me know. Have a great day!"
     }
 ]

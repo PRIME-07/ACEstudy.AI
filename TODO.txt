@@ -1,0 +1,4 @@
+- feed the username into the prompt
+- Find hosted db for RAG
+- add RAG
+- make a UI

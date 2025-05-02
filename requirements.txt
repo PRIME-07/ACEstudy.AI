@@ -8,3 +8,4 @@ ollama
 unstructured
 unstructured[pdf,ppt,doc,image]
 firebase-admin
+pyrebase4
