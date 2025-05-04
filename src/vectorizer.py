@@ -1,26 +1,8 @@
-import chromadb
-chroma_client = chromadb.Client()
+from pinecone import Pinecone, ServerlessSpec
+from dotenv import load_dotenv
+import os
 
-collection = chroma_client.create_collection(
-    name="ace_user_documents",
-    embedding_function=emb_fn,
-    metadata = {
-        user_id:"abc",
-        session_id: "001"
-    })
+# Load environment variables from .env file
+load_dotenv()
 
-
-collection.add(
-    documents = [
-        "this is a test document",
-        "this a document about oranges",
-    ],
-    ids = ["id1" ,"id2"]
-)
-
-results = collection.query(
-    query_texts = ["this is a document about hawaii"],
-    n_results = 2
-)
-
-print(results)
+pc = Pinecone(api_key="PINECONE_API_KEY")

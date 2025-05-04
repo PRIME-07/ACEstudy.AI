@@ -9,3 +9,5 @@ unstructured
 unstructured[pdf,ppt,doc,image]
 firebase-admin
 pyrebase4
+pinecone
+tavily-python
