@@ -122,10 +122,25 @@ def conversation(uid=None, session_id=None):
 
             # Step 1: Check if a web search is needed
             decision_prompt = f"""
-            Your task is to determine if a web search is required to answer the user's query accurately.
-            User's Query: {user_input}
-            Reply only with "yes" or "no".
+                You are ACE, an academic assistant that helps students from school to PhD level.
+
+                Your task is to decide if a web search is needed to answer the user's query.
+
+                Respond with:
+                - "no" if the query asks for standard academic content that is commonly found in textbooks, lectures, or syllabi.
+                Examples: definitions (e.g. "What is a convolution in CNN?"), explanations of concepts (e.g. "How does gradient descent work?"), general comparisons, formulas, theoretical explanations, or coding syntax.
+                - "yes" if the query is about:
+                  - recent discoveries, papers, or trends (e.g. "What are the latest CNN architectures in 2024?")
+                  - real-world datasets or project ideas
+                  - tools/libraries/frameworks updates (e.g. "What's new in PyTorch 2.2?")
+                  - institution-specific or exam-specific info (e.g. "What is the syllabus for GATE 2025?")
+                  - ambiguous or incomplete questions needing clarification from external sources.
+
+                User's Query: "{user_input}"
+
+                Only respond with "yes" or "no".
             """
+
 
             decision = model.invoke(decision_prompt).strip()
 

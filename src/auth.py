@@ -3,6 +3,7 @@ import json
 from chat import conversation
 from firebase_utils import create_session
 from firebase_admin import firestore
+from firebase_utils import get_all_sessions, load_session
 
 class Auth:
     def __init__(self, config_path="firebase_admin_keys.json"):
@@ -75,10 +76,44 @@ class Auth:
             print(f"Welcome back! {user_name}")
             print(f"User ID: {user['localId']}")
 
-            # Name and create the session
-            session_name = input("Enter a name for your session: ")
-            session_id = create_session(user['localId'], session_name)
-            print(f"Session '{session_name}' created with ID: {session_id}")
+            # Ask user to create a new session or load an existing one
+            while True:
+                print("Enter 1 to create a new session or 2 to load an existing session.")
+                session_choice = input("Choice: ")
+
+                if session_choice == "1":
+                    # Name and create the session
+                    while True:
+                        session_name = input("Enter a name for your session: ")
+
+                        # Check for unique session name
+                        sessions = get_all_sessions(user['localId'])
+                        if session_name in [session['session_name'] for session in sessions]:
+                            print("Session name already exists. Please choose a different name.")
+
+                        else:
+                            session_id = create_session(user['localId'], session_name)
+                            print(f"Session '{session_name}' created with ID: {session_id}")
+                            break
+                    break
+
+                elif session_choice == "2":
+                    # Load existing session
+                    print("Available sessions:")
+                    sessions = get_all_sessions(user['localId'])
+
+                    for i, session in enumerate(sessions):
+                        print(f"{i+1}. {session['session_name']}, (Created at: {session['created_at']})")   
+
+                    select_session = input("Enter the name of the session you want to load: ")
+                    session_id = load_session(user['localId'], select_session)
+                    if session_id is None:
+                        print(f"No session found with the name '{select_session}'")
+                        return None
+                    break
+                
+                else:
+                    print("Invalid choice. Please enter 1 or 2.")
 
             # Start conversation
             conversation(user['localId'], session_id)

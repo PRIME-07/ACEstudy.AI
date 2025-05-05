@@ -62,7 +62,8 @@ def load_session(uid, select_session):
         
         for msg in session_data["full_chat_history"]:
             print(f"{msg['role']}: {msg['message']}")
-    
+            return session_data["session_id"]
+
     else:
         print(f"No session found with the name '{select_session}'")
         return None
