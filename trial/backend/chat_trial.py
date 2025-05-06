@@ -1,5 +1,5 @@
 import time
-from vectorizer import vectorize
+from pinecone_db import vectorize
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import RetrievalQA  # To use retriever with LLM

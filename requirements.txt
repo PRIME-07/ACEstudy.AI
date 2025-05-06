@@ -2,12 +2,15 @@ pandas
 langchain
 langchain-core
 langchain-ollama
-langchain-chroma
 langchain-community
 ollama
 unstructured
 unstructured[pdf,ppt,doc,image]
+python-docx
+python-pptx
+PyMuPDF
 firebase-admin
 pyrebase4
 pinecone
 tavily-python
+sentence-transformers
