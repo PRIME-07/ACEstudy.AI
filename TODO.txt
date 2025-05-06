@@ -1,4 +1,2 @@
-- Provide current date and time to llm to make more informed decisions such as designing a study schedule 
-- add RAG chat (useing Pinecone)
 - make a UI (IDK about this, need to make an api of the entire bot
 for this to work)
