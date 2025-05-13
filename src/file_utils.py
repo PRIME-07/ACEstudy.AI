@@ -41,7 +41,5 @@ def extract_text(file_path):
         return read_pdf(file_path)
     elif ext == '.pptx':
         return read_pptx(file_path)
-    elif ext in ['.jpg', '.jpeg', '.png']:
-        print("Use '/image' to uplaod images.")
     else:
         raise ValueError(f"Unsupported file type: {ext}")
